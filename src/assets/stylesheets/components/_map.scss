@@ -34,3 +34,73 @@
   }
 
 }
+
+.icon-marker {
+
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: 3.6em;
+  height: 3.6em;
+  font-size: .6em;
+  font-weight: bold;
+  background-color: $red-800;
+  border-radius: 100%;
+  box-shadow: 0 2px 3px rgba($grey-800, .5);
+
+  &:hover {
+
+    .icon-marker-tooltip {
+      display: block;
+    }
+
+  }
+
+}
+
+.icon-marker-tooltip {
+
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  width: 16em;
+  font-size: 1.2em;
+  padding: 1em;
+  background-color: $grey-900;
+  border-radius: .4em;
+  margin-bottom: 1em;
+
+  &:before {
+    display: block;
+    position: absolute;
+    bottom: -.6em;
+    left: 50%;
+    z-index: -1;
+    content: '';
+    width: 1.4em;
+    height: 1.4em;
+    background-color: $grey-900;
+    transform: rotate(45deg);
+    margin-left: -.7em;
+  }
+
+  h2 {
+    font-size: 1.2em;
+    margin-bottom: .2em;
+    margin-top: 0;
+  }
+
+  ul,
+  p {
+    font-weight: normal;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+}

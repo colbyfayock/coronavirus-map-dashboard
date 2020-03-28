@@ -1,8 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import L from 'leaflet';
 
-import { promiseToFlyTo, clearMapLayers } from 'lib/map';
+import { promiseToFlyTo, geoJsonToMarkers, clearMapLayers } from 'lib/map';
 import { trackerLocationsToGeoJson } from 'lib/coronavirus';
 import { useCoronavirusTracker } from 'hooks';
 
@@ -22,6 +21,7 @@ const IndexPage = () => {
     api: 'locations'
   });
   const { locations = [] } = data || {};
+  console.log('data', data);
 
   /**
    * mapEffect
@@ -38,7 +38,37 @@ const IndexPage = () => {
     })
 
     const locationsGeoJson = trackerLocationsToGeoJson(locations);
-    const locationsGeoJsonLayers = new L.GeoJSON(locationsGeoJson);
+
+    const locationsGeoJsonLayers = geoJsonToMarkers(locationsGeoJson, {
+      featureToHtml: ({ properties = {} } = {}) => {
+        const { country, latest = {}, country_population: population, last_updated } = properties
+        const { confirmed, deaths, recovered } = latest;
+        const rate = confirmed / population;
+
+        let confirmedString = `${confirmed}`;
+
+        if ( confirmed > 1000 ) {
+          confirmedString = `${confirmedString.slice(0, -3)}k+`
+        }
+
+        return `
+          <span class="icon-marker">
+            <span class="icon-marker-tooltip">
+              <h2>${country}</h2>
+              <ul>
+                <li><strong>Confirmed:</strong> ${confirmed}</li>
+                <li><strong>Deaths:</strong> ${deaths}</li>
+                <li><strong>Recovered:</strong> ${recovered}</li>
+                <li><strong>Population:</strong> ${population}</li>
+                <li><strong>Last Update:</strong> ${last_updated}</li>
+              </ul>
+            </span>
+            ${ confirmedString }
+          </span>
+        `
+      }
+    });
+
     const bounds = locationsGeoJsonLayers.getBounds();
 
     locationsGeoJsonLayers.addTo(map);

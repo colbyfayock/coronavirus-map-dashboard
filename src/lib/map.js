@@ -1,3 +1,38 @@
+import L from 'leaflet';
+
+/**
+ * geoJsonToMarkers
+ */
+
+export function geoJsonToMarkers(geoJson, options) {
+  return new L.GeoJSON(geoJson, {
+    pointToLayer: pointToLayerMarkerCreator(options)
+  });
+}
+
+/**
+ * clearMapLayers
+ */
+
+export function pointToLayerMarkerCreator({ featureToHtml } = {}) {
+  return function(feature = {}, latlng) {
+    let html = `<span class="icon-marker"></span>`;
+
+    if ( typeof featureToHtml === 'function' ) {
+      html = featureToHtml(feature);
+    }
+
+    return L.marker( latlng, {
+      icon: L.divIcon({
+        className: 'icon',
+        html
+      }),
+      riseOnHover: true
+    })
+  }
+
+}
+
 /**
  * clearMapLayers
  */
