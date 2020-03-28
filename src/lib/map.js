@@ -14,12 +14,21 @@ export function geoJsonToMarkers(geoJson, options) {
  * clearMapLayers
  */
 
-export function pointToLayerMarkerCreator({ featureToHtml } = {}) {
+export function pointToLayerMarkerCreator({ featureToHtml, onClick } = {}) {
   return function(feature = {}, latlng) {
     let html = `<span class="icon-marker"></span>`;
 
     if ( typeof featureToHtml === 'function' ) {
       html = featureToHtml(feature);
+    }
+
+    function onMarkerClick(e) {
+      if ( typeof onClick === 'function' ) {
+        onClick({
+          feature,
+          latlng
+        }, e)
+      }
     }
 
     return L.marker( latlng, {
@@ -28,7 +37,7 @@ export function pointToLayerMarkerCreator({ featureToHtml } = {}) {
         html
       }),
       riseOnHover: true
-    })
+    }).on('click', onMarkerClick);
   }
 
 }
@@ -68,15 +77,11 @@ export function promiseToFlyTo( map, { zoom, center }) {
       reject( `${baseError}: no flyTo method on map` );
     }
 
-    if ( typeof zoom !== 'number' ) {
-      reject( `${baseError}: zoom invalid number ${zoom}` );
-    }
-
     const mapCenter = center || map.getCenter();
     const mapZoom = zoom || map.getZoom();
 
     map.flyTo( mapCenter, mapZoom, {
-      duration: 2
+      duration: 1
     });
 
     map.once( 'moveend', () => {

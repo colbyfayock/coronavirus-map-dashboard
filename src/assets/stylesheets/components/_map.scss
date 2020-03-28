@@ -1,4 +1,5 @@
 $map-background: #081217; // tilelayer background color
+
 .map {
 
   position: relative;
@@ -58,7 +59,7 @@ $map-background: #081217; // tilelayer background color
   color: white;
   width: 3.6em;
   height: 3.6em;
-  font-size: .6em;
+  font-size: .7em;
   font-weight: bold;
   background-color: $red-800;
   border-radius: 100%;
@@ -80,18 +81,18 @@ $map-background: #081217; // tilelayer background color
   position: absolute;
   bottom: 100%;
   width: 16em;
-  font-size: 1.2em;
+  font-size: 1.4em;
   padding: 1em;
   background-color: $blue-grey-900;
   border-radius: .4em;
   margin-bottom: 1em;
+  box-shadow: 0 3px 5px rgba(black, .9);
 
   &:before {
     display: block;
     position: absolute;
     bottom: -.6em;
     left: 50%;
-    z-index: -1;
     content: '';
     width: 1.4em;
     height: 1.4em;
@@ -101,9 +102,17 @@ $map-background: #081217; // tilelayer background color
   }
 
   h2 {
-    font-size: 1.2em;
-    margin-bottom: .2em;
+    font-size: 1.5em;
+    line-height: 1.2;
+    margin-bottom: .1em;
     margin-top: 0;
+  }
+
+  h3 {
+    font-size: 1.2em;
+    margin: .1em 0;
+    font-weight: normal;
+    color: $blue-grey-100;
   }
 
   ul,
@@ -114,7 +123,7 @@ $map-background: #081217; // tilelayer background color
   ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: .6em 0 0;
   }
 
 }
