@@ -1,0 +1,80 @@
+.page-home {
+
+  .map,
+  .map-base {
+    height: 50vh;
+  }
+
+  main {
+    padding: 0;
+  }
+
+  .popup-gatsby {
+    display: flex;
+    width: 36em;
+    padding: 1em;
+    border-radius: 1em;
+  }
+
+  .popup-gatsby-image {
+    display: flex;
+    align-items: center;
+    margin-right: 2em;
+  }
+
+  .popup-gatsby-content {
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    text-align: left;
+    padding-right: 1em;
+
+    h1 {
+      margin: 0 0 .2em;
+    }
+    p {
+      margin: 0 0 .5em;
+    }
+
+  }
+
+  .gatsby-astronaut {
+
+    overflow: hidden;
+    width: 10em;
+    height: 10em;
+    background-color: $gatsby-purple;
+    border-radius: 100%;
+    border: solid 6px $gatsby-purple;
+    margin: 0;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+  }
+
+}
+
+.home-start {
+
+  padding-top: 4em;
+  padding-bottom: 4em;
+
+  h2 {
+    margin-top: 0;
+  }
+
+  p {
+    margin-bottom: 1.2em;
+  }
+
+  pre {
+    margin-bottom: 1.5em;
+  }
+
+}

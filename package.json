@@ -1,0 +1,74 @@
+{
+  "name": "gatsby-starter-leaflet",
+  "description": "A Gatsby starter with Leafet!",
+  "version": "0.2.2",
+  "author": "Colby Fayock <hello@colbyfayock.com>",
+  "dependencies": {
+    "gatsby": "^2.19.43",
+    "gatsby-plugin-react-helmet": "^3.1.23",
+    "gatsby-plugin-react-leaflet": "2.0.12",
+    "gatsby-plugin-resolve-src": "^2.0.0",
+    "gatsby-plugin-sass": "^2.1.30",
+    "gatsby-source-filesystem": "^2.1.55",
+    "leaflet": "^1.6.0",
+    "node-sass": "^4.13.1",
+    "path": "^0.12.7",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-helmet": "^5.2.0",
+    "react-leaflet": "^2.6.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.1.0",
+    "babel-preset-gatsby": "^0.2.35",
+    "enzyme": "^3.11.0",
+    "eslint": "^6.8.0",
+    "eslint-config-zurgbot": "^0.0.6",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "lint-staged": "^10.0.8",
+    "prettier": "^1.19.1",
+    "prettier-eslint": "^9.0.1",
+    "prettier-eslint-cli": "^5.0.0"
+  },
+  "keywords": [
+    "gatsby",
+    "sass",
+    "leaflet",
+    "mapping",
+    "maps"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "clean": "gatsby clean",
+    "develop": "gatsby develop",
+    "format": "prettier-eslint --eslint-config-path ./config/eslint.config.js --write '**/*.js'",
+    "lint": "eslint -c ./config/eslint.config.js . --ext .js",
+    "start": "yarn develop",
+    "serve": "gatsby serve",
+    "test": "jest --config ./config/jest.config.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "yarn format",
+      "yarn lint"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/colbyfayock/gatsby-starter-leaflet"
+  },
+  "bugs": {
+    "url": "https://github.com/colbyfayock/gatsby-starter-leaflet/issues"
+  }
+}
