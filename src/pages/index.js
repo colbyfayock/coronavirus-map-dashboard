@@ -1,43 +1,28 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Helmet from 'react-helmet';
 import L from 'leaflet';
 import { Marker } from 'react-leaflet';
 
 import { promiseToFlyTo, getCurrentLocation } from 'lib/map';
+import { useCoronavirusTracker } from 'hooks';
 
 import Layout from 'components/Layout';
 import Container from 'components/Container';
 import Map from 'components/Map';
 
-import gatsby_astronaut from 'assets/images/gatsby-astronaut.jpg';
-
 const LOCATION = {
-  lat: 38.9072,
-  lng: -77.0369
+  lat: 0,
+  lng: 0
 };
 const CENTER = [LOCATION.lat, LOCATION.lng];
-const DEFAULT_ZOOM = 2;
-const ZOOM = 10;
-
-const timeToZoom = 2000;
-const timeToOpenPopupAfterZoom = 4000;
-const timeToUpdatePopupAfterZoom = timeToOpenPopupAfterZoom + 3000;
-
-const popupContentHello = `<p>Hello 👋</p>`;
-const popupContentGatsby = `
-  <div class="popup-gatsby">
-    <div class="popup-gatsby-image">
-      <img class="gatsby-astronaut" src=${gatsby_astronaut} />
-    </div>
-    <div class="popup-gatsby-content">
-      <h1>Gatsby Leaflet Starter</h1>
-      <p>Welcome to your new Gatsby site. Now go build something great!</p>
-    </div>
-  </div>
-`;
+const DEFAULT_ZOOM = 1;
 
 const IndexPage = () => {
-  const markerRef = useRef();
+  const { data = {} } = useCoronavirusTracker({
+    api: 'locations'
+  });
+
+  console.log('data', data);
 
   /**
    * mapEffect
@@ -45,33 +30,46 @@ const IndexPage = () => {
    * @example Here this is and example of being used to zoom in and set a popup on load
    */
 
-  async function mapEffect({ leafletElement } = {}) {
-    if ( !leafletElement ) return;
+  async function mapEffect({ leafletElement: map } = {}) {
+    if ( !map ) return;
 
-    const popup = L.popup({
-      maxWidth: 800
+    map.eachLayer((layer = {}) => {
+      const { options = {} } = layer;
+      const { name } = options;
+      if ( name && name === 'OpenStreetMap') return;
+      map.removeLayer(layer);
     });
 
-    const location = await getCurrentLocation().catch(() => LOCATION );
+    const { locations = [] } = data || {};
 
-    const { current = {} } = markerRef || {};
-    const { leafletElement: marker } = current;
+    if ( locations.length === 0 ) return;
 
-    marker.setLatLng( location );
-    popup.setLatLng( location );
-    popup.setContent( popupContentHello );
+    const locationsGeoJson = {
+      "type": "FeatureCollection",
+      "features": locations.map((location = {}) => {
+        const { coordinates = {} } = location;
+        const { latitude, longitude } = coordinates;
+        const lat = latitude && parseFloat(latitude);
+        const lng = longitude && parseFloat(longitude);
+        return {
+          "type": "Feature",
+          "properties": {
+            ...location
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [ lng, lat ]
+          }
+        }
+      })
+    }
 
-    setTimeout( async () => {
-      await promiseToFlyTo( leafletElement, {
-        zoom: ZOOM,
-        center: location
-      });
+    const locationsGeoJsonLayers = new L.geoJson(locationsGeoJson);
+    const bounds = locationsGeoJsonLayers.getBounds();
 
-      marker.bindPopup( popup );
+    locationsGeoJsonLayers.addTo(map);
 
-      setTimeout(() => marker.openPopup(), timeToOpenPopupAfterZoom );
-      setTimeout(() => marker.setPopupContent( popupContentGatsby ), timeToUpdatePopupAfterZoom );
-    }, timeToZoom );
+    map.fitBounds(bounds);
   }
 
   const mapSettings = {
@@ -87,9 +85,7 @@ const IndexPage = () => {
         <title>Home Page</title>
       </Helmet>
 
-      <Map {...mapSettings}>
-        <Marker ref={markerRef} position={CENTER} />
-      </Map>
+      <Map {...mapSettings} />
 
       <Container type="content" className="text-center home-start">
         <h2>Still Getting Started?</h2>

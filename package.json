@@ -4,6 +4,7 @@
   "version": "0.2.2",
   "author": "Colby Fayock <hello@colbyfayock.com>",
   "dependencies": {
+    "axios": "^0.19.2",
     "gatsby": "^2.19.43",
     "gatsby-plugin-react-helmet": "^3.1.23",
     "gatsby-plugin-react-leaflet": "2.0.12",
@@ -17,6 +18,7 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-helmet": "^5.2.0",
+    "react-icons": "^3.9.0",
     "react-leaflet": "^2.6.3"
   },
   "devDependencies": {
