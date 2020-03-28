@@ -2,7 +2,7 @@ header {
 
   width: 100%;
   color: $white;
-  background-color: $grey-900;
+  background-color: $blue-grey-900;
 
   .container {
     display: flex;
@@ -12,20 +12,30 @@ header {
   }
 
   ul {
+    display: flex;
     list-style: none;
-    margin: 0;
+    justify-content: flex-end;
+    margin: 0 -.7em;
     padding: 0;
   }
 
   li {
-    display: inline-block;
+    display: block;
   }
 
   a {
-    display: block;
-    color: $grey-500;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $blue-grey-400;
     text-decoration: none;
-    padding: 0 .5em;
+    padding: 0 .7em;
+
+    svg {
+      margin-right: .4em;
+    }
+
   }
 
   h1 {

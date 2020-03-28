@@ -34,7 +34,7 @@ const IndexPage = () => {
 
     clearMapLayers({
       map,
-      excludeByName: [ 'OpenStreetMap' ]
+      excludeByName: [ 'Mapbox' ]
     })
 
     const locationsGeoJson = trackerLocationsToGeoJson(locations);
@@ -78,7 +78,7 @@ const IndexPage = () => {
 
   const mapSettings = {
     center: CENTER,
-    defaultBaseMap: 'OpenStreetMap',
+    defaultBaseMap: 'Mapbox',
     zoom: DEFAULT_ZOOM,
     mapEffect
   };

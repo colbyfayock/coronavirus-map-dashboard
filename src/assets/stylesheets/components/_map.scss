@@ -1,3 +1,4 @@
+$map-background: #081217; // tilelayer background color
 .map {
 
   position: relative;
@@ -6,7 +7,18 @@
   .map-base {
     width: 100%;
     height: 100%;
-    background: $blue-grey-50;
+    background: $map-background;
+  }
+
+  .leaflet-control-attribution {
+
+    color: $blue-grey-400;
+    background-color: darken($map-background, 5);
+
+    a {
+      color: #009ddb;
+    }
+
   }
 
 }
@@ -48,7 +60,7 @@
   font-weight: bold;
   background-color: $red-800;
   border-radius: 100%;
-  box-shadow: 0 2px 3px rgba($grey-800, .5);
+  box-shadow: 0 2px 5px rgba($grey-800, .9);
 
   &:hover {
 
