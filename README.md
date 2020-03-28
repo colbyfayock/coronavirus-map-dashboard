@@ -1,4 +1,6 @@
-# 🍃 Gatsby Leaflet Starter
+# 🦠 Coronavirus (COVID-19) Map Dashboard
+
+Uses https://github.com/ExpDev07/coronavirus-tracker-api
 
 Jumpstart your next Gatsby mapping project with Leaflet!
 
