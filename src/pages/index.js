@@ -91,12 +91,23 @@ const IndexPage = () => {
       <Map {...mapSettings} />
 
       <Container type="content" className="text-center home-start">
-        <h2>Still Getting Started?</h2>
-        <p>Run the following in your terminal!</p>
-        <pre>
-          <code>gatsby new [directory] https://github.com/colbyfayock/gatsby-starter-leaflet</code>
-        </pre>
-        <p className="note">Note: Gatsby CLI required globally for the above command</p>
+        <h2>Demo Mapping App with Gatsby and React Leaflet</h2>
+        <ul>
+          <li>
+            Uses <a href="https://github.com/ExpDev07/coronavirus-tracker-api">github.com/ExpDev07/coronavirus-tracker-api</a> via <a href="https://coronavirus-tracker-api.herokuapp.com/">coronavirus-tracker-api.herokuapp.com</a>
+          </li>
+          <li>
+            Which uses jhu - <a href="https://github.com/CSSEGISandData/COVID-19">github.com/CSSEGISandData/COVID-19</a> - Worldwide Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
+          </li>
+          <li>
+            And csbs - <a href="https://www.csbs.org/information-covid-19-coronavirus">csbs.org/information-covid-19-coronavirus</a> - U.S. County data that comes from the Conference of State Bank Supervisors.
+          </li>
+        </ul>
+
+        <h2>Want to build your own map?</h2>
+        <p>
+          Check out <a href="https://github.com/colbyfayock/gatsby-starter-leaflet">github.com/colbyfayock/gatsby-starter-leaflet</a>
+        </p>
       </Container>
     </Layout>
   );
