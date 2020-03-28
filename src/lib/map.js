@@ -1,4 +1,26 @@
 /**
+ * clearMapLayers
+ */
+
+export function clearMapLayers({ map, excludeByName = [] }) {
+  if ( !map || typeof map.eachLayer !== 'function' ) return;
+  const layersRemoved = [];
+
+  map.eachLayer((layer = {}) => {
+    const { options = {} } = layer;
+    const { name } = options;
+
+    if ( name && excludeByName.includes(name)) return;
+
+    layersRemoved.push(layer);
+
+    map.removeLayer(layer);
+  });
+
+  return layersRemoved;
+}
+
+/**
  * promiseToFlyTo
  * @description
  */

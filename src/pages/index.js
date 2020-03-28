@@ -1,9 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import Helmet from 'react-helmet';
 import L from 'leaflet';
-import { Marker } from 'react-leaflet';
 
-import { promiseToFlyTo, getCurrentLocation } from 'lib/map';
+import { promiseToFlyTo, clearMapLayers } from 'lib/map';
+import { trackerLocationsToGeoJson } from 'lib/coronavirus';
 import { useCoronavirusTracker } from 'hooks';
 
 import Layout from 'components/Layout';
@@ -21,8 +21,7 @@ const IndexPage = () => {
   const { data = {} } = useCoronavirusTracker({
     api: 'locations'
   });
-
-  console.log('data', data);
+  const { locations = [] } = data || {};
 
   /**
    * mapEffect
@@ -31,40 +30,15 @@ const IndexPage = () => {
    */
 
   async function mapEffect({ leafletElement: map } = {}) {
-    if ( !map ) return;
+    if ( !map || locations.length === 0 ) return;
 
-    map.eachLayer((layer = {}) => {
-      const { options = {} } = layer;
-      const { name } = options;
-      if ( name && name === 'OpenStreetMap') return;
-      map.removeLayer(layer);
-    });
+    clearMapLayers({
+      map,
+      excludeByName: [ 'OpenStreetMap' ]
+    })
 
-    const { locations = [] } = data || {};
-
-    if ( locations.length === 0 ) return;
-
-    const locationsGeoJson = {
-      "type": "FeatureCollection",
-      "features": locations.map((location = {}) => {
-        const { coordinates = {} } = location;
-        const { latitude, longitude } = coordinates;
-        const lat = latitude && parseFloat(latitude);
-        const lng = longitude && parseFloat(longitude);
-        return {
-          "type": "Feature",
-          "properties": {
-            ...location
-          },
-          "geometry": {
-            "type": "Point",
-            "coordinates": [ lng, lat ]
-          }
-        }
-      })
-    }
-
-    const locationsGeoJsonLayers = new L.geoJson(locationsGeoJson);
+    const locationsGeoJson = trackerLocationsToGeoJson(locations);
+    const locationsGeoJsonLayers = new L.GeoJSON(locationsGeoJson);
     const bounds = locationsGeoJsonLayers.getBounds();
 
     locationsGeoJsonLayers.addTo(map);
