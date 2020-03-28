@@ -82,7 +82,7 @@ $map-background: #081217; // tilelayer background color
   width: 16em;
   font-size: 1.2em;
   padding: 1em;
-  background-color: $grey-900;
+  background-color: $blue-grey-900;
   border-radius: .4em;
   margin-bottom: 1em;
 
@@ -95,7 +95,7 @@ $map-background: #081217; // tilelayer background color
     content: '';
     width: 1.4em;
     height: 1.4em;
-    background-color: $grey-900;
+    background-color: $blue-grey-900;
     transform: rotate(45deg);
     margin-left: -.7em;
   }
