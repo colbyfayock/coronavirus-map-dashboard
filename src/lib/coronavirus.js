@@ -7,17 +7,25 @@ import { getEmojiFlag } from 'countries-list';
  */
 
 export function trackerLocationToFeature(location = {}) {
-  const { coordinates = {}, country_code: countryCode } = location;
-  const { latitude, longitude } = coordinates;
-  const lat = latitude && parseFloat(latitude);
-  const lng = longitude && parseFloat(longitude);
-  const countryBounds = getBoundsOfCountryByIsoAlpha2Code(countryCode);
-  const flag = getEmojiFlag(countryCode);
+
+  const { countryInfo = {} } = location;
+  const { lat, long: lng, iso2 } = countryInfo;
+
+  const countryCode = iso2;
+
+  let countryBounds;
+  let flag;
+
+  if ( typeof countryCode === 'string' ) {
+    countryBounds = getBoundsOfCountryByIsoAlpha2Code(countryCode);
+    flag = getEmojiFlag(countryCode);
+  }
 
   return {
     "type": "Feature",
     "properties": {
       ...location,
+      countryCode,
       countryBounds,
       flag
     },
@@ -47,32 +55,33 @@ export function trackerLocationsToGeoJson(locations = []) {
  */
 
 export function trackerFeatureToHtmlMarker({ properties = {} } = {}) {
-  const { country, latest = {}, country_population: population, last_updated: lastUpdated, province, flag } = properties
-  const { confirmed, deaths, recovered } = latest;
+  const {
+    country,
+    updated,
+    flag,
+    cases,
+    deaths,
+    recovered
+  } = properties
 
-  const hasProvince = typeof province === 'string' && province.length > 0;
-  const rate = confirmed / population;
+  let casesString = `${cases}`;
 
-  let confirmedString = `${confirmed}`;
-
-  if ( confirmed > 1000 ) {
-    confirmedString = `${confirmedString.slice(0, -3)}k+`
+  if ( cases > 1000 ) {
+    casesString = `${casesString.slice(0, -3)}k+`
   }
 
   return `
     <span class="icon-marker">
       <span class="icon-marker-tooltip">
         <h2>${flag} ${country}</h2>
-        ${hasProvince ? `<h3>${ province }</h3>` : '' }
         <ul>
-          <li><strong>Confirmed:</strong> ${confirmed}</li>
+          <li><strong>Confirmed:</strong> ${cases}</li>
           <li><strong>Deaths:</strong> ${deaths}</li>
           <li><strong>Recovered:</strong> ${recovered}</li>
-          <li><strong>Population:</strong> ${population}</li>
-          <li><strong>Last Update:</strong> ${lastUpdated}</li>
+          <li><strong>Last Update:</strong> ${updated}</li>
         </ul>
       </span>
-      ${ confirmedString }
+      ${ casesString }
     </span>
   `;
 }

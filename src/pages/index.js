@@ -18,10 +18,10 @@ const CENTER = [LOCATION.lat, LOCATION.lng];
 const DEFAULT_ZOOM = 1;
 
 const IndexPage = () => {
-  const { data = {} } = useCoronavirusTracker({
-    api: 'locations'
+  const { data = [] } = useCoronavirusTracker({
+    api: 'countries'
   });
-  const { locations = [] } = data || {};
+  const hasData = Array.isArray(data) && data.length > 0;
 
   /**
    * mapEffect
@@ -30,14 +30,14 @@ const IndexPage = () => {
    */
 
   async function mapEffect({ leafletElement: map } = {}) {
-    if ( !map || locations.length === 0 ) return;
+    if ( !map || !hasData ) return;
 
     clearMapLayers({
       map,
       excludeByName: [ 'Mapbox' ]
     })
 
-    const locationsGeoJson = trackerLocationsToGeoJson(locations);
+    const locationsGeoJson = trackerLocationsToGeoJson(data);
 
     const locationsGeoJsonLayers = geoJsonToMarkers(locationsGeoJson, {
       onClick: handleOnMarkerClick,
@@ -57,20 +57,20 @@ const IndexPage = () => {
 
     const { geometry = {}, properties = {} } = feature;
     const { coordinates } = geometry;
-    const { countryBounds, country_code: countryCode } = properties;
-
-    const boundsGeoJsonLayer = new L.GeoJSON(countryBounds);
-    const boundsGeoJsonLayerBounds = boundsGeoJsonLayer.getBounds();
+    const { countryBounds, countryCode } = properties;
 
     promiseToFlyTo(map, {
       center: {
         lat: coordinates[1],
         lng: coordinates[0]
       },
-      zoom: 2
+      zoom: 3
     });
 
-    if ( countryCode !== 'US' ) {
+    if ( countryBounds && countryCode !== 'US' ) {
+      const boundsGeoJsonLayer = new L.GeoJSON(countryBounds);
+      const boundsGeoJsonLayerBounds = boundsGeoJsonLayer.getBounds();
+
       map.fitBounds(boundsGeoJsonLayerBounds);
     }
   }

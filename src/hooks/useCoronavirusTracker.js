@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const API_HOST = 'https://coronavirus-tracker-api.herokuapp.com/v2';
+const API_HOST = 'https://corona.lmao.ninja';
 
 const ENDPOINTS = [
   {
-    id: 'default',
-    path: '/',
+    id: 'all',
+    path: '/all',
     isDefault: true
   },
   {
-    id: 'locations',
-    path: '/locations'
+    id: 'countries',
+    path: '/countries'
   }
 ]
 
@@ -20,7 +20,7 @@ const defaultState = {
   state: 'ready'
 }
 
-const useCoronavirusTracker = ({ api = 'default' }) => {
+const useCoronavirusTracker = ({ api = 'all' }) => {
 
   const [tracker = {}, updateTracker] = useState(defaultState)
 
