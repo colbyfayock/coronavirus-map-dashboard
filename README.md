@@ -5,9 +5,9 @@ Uses https://github.com/ExpDev07/coronavirus-tracker-api
 Jumpstart your next Gatsby mapping project with Leaflet!
 
 ## ⚡ Quick Deploy
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colbyfayock/coronavirus-map-dashboard)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colbyfayock/coronavirus-map-dashboard) [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/colbyfayock/coronavirus-map-dashboard)
 
-Once deployed, you'll need to add an environment variable `GATSBY_MAPBOX_KEY` in Netlify with your [mapbox.com](https://www.mapbox.com) account key.
+Once deployed, you'll need to add an environment variable `GATSBY_MAPBOX_KEY` with an access token from your [mapbox.com](https://www.mapbox.com) account.
 
 ## 🧰 What This Includes
 * [Yarn](https://yarnpkg.com/en/)
