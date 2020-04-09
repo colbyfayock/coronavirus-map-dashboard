@@ -4,12 +4,12 @@ Uses https://github.com/ExpDev07/coronavirus-tracker-api
 
 Jumpstart your next Gatsby mapping project with Leaflet!
 
-# Quick Start
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://github.com/colbyfayock/coronavirus-map-dashboard)
+## ⚡ Quick Start
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colbyfayock/coronavirus-map-dashboard)
 
 Once deployed, you'll need to add an environment variable `GATSBY_MAPBOX_KEY` in Netlify with your [mapbox.com](https://www.mapbox.com) account key.
 
-## What This Includes
+## 🧰 What This Includes
 * [Yarn](https://yarnpkg.com/en/)
 * [Gatsby](https://www.gatsbyjs.org/)
 * [Sass](https://sass-lang.com)
@@ -18,19 +18,19 @@ Once deployed, you'll need to add an environment variable `GATSBY_MAPBOX_KEY` in
 * [Leaflet](https://leafletjs.com/)
 * [React Leaflet](https://react-leaflet.js.org)
 
-# Getting Started
+## 🚀 Getting Started
 
-## Requirements
+### Requirements
 * [Gatsby CLI](https://www.npmjs.com/package/gatsby-cli)
 * [Yarn](https://yarnpkg.com/en/)
 
-## Quick Start
+### Quick Start
 Run the following in your favorite terminal:
 ```
-gatsby new [directory] https://github.com/colbyfayock/gatsby-starter-leaflet
+gatsby new [directory] https://github.com/colbyfayock/coronavirus-map-dashboard
 ```
 
-## Starting from Scratch
+### Starting from Scratch
 * Set up Yarn: https://yarnpkg.com/lang/en/docs/install/#mac-stable)[https://yarnpkg.com/lang/en/docs/install/
 * Install the Gatsby CLI globally:
 ```
@@ -38,11 +38,11 @@ yarn global add gatsby-cli
 ```
 * Inside the directory of your choice, scaffold a new Gatsby site:
 ```
-gatsby new [directory] https://github.com/colbyfayock/gatsby-starter-leaflet
+gatsby new [directory] https://github.com/colbyfayock/coronavirus-map-dashboard
 ```
-For example, if I want my installation in `~/Code/new-gatsby-site`, I would navigate to `~/Code` and run:
+For example, if I want my installation in `~/Code/my-coronavirua-dashboard`, I would navigate to `~/Code` and run:
 ```
-gatsby new new-gatsby-site https://github.com/colbyfayock/gatsby-starter-leaflet
+gatsby new my-coronavirua-dashboard https://github.com/colbyfayock/coronavirus-map-dashboard
 ```
 * Navigate to your new directory and run:
 ```
