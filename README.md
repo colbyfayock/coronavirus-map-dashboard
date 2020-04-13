@@ -1,6 +1,6 @@
 # 🦠 Coronavirus (COVID-19) Map Dashboard
 
-Uses https://github.com/ExpDev07/coronavirus-tracker-api
+Uses https://github.com/NovelCOVID/API
 
 Jumpstart your next Gatsby mapping project with Leaflet!
 
