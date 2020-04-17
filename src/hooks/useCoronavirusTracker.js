@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const API_HOST = 'https://corona.lmao.ninja';
+const API_HOST = 'https://corona.lmao.ninja/v2';
 
 const ENDPOINTS = [
   {
