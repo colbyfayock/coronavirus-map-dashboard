@@ -4,6 +4,7 @@ import L from 'leaflet';
 
 import { promiseToFlyTo, geoJsonToMarkers, clearMapLayers } from 'lib/map';
 import { trackerLocationsToGeoJson, trackerFeatureToHtmlMarker } from 'lib/coronavirus';
+import { commafy } from 'lib/util';
 import { useCoronavirusTracker } from 'hooks';
 
 import Layout from 'components/Layout';
@@ -18,10 +19,23 @@ const CENTER = [LOCATION.lat, LOCATION.lng];
 const DEFAULT_ZOOM = 1;
 
 const IndexPage = () => {
-  const { data = [] } = useCoronavirusTracker({
+  const { data: countries = [], fetchTracker: fetchCountries } = useCoronavirusTracker({
     api: 'countries'
   });
-  const hasData = Array.isArray(data) && data.length > 0;
+
+  const { data: stats = {}, fetchTracker: fetchStats } = useCoronavirusTracker({
+    api: 'all'
+  });
+
+  const hasCountries = Array.isArray(countries) && countries.length > 0;
+
+  // active: 1584170
+  // critical: 54536
+  // recovered: 606462
+
+  // todayCases: 21149
+  // todayDeaths: 1236
+  // updated: 1587302636236)
 
   /**
    * mapEffect
@@ -30,14 +44,14 @@ const IndexPage = () => {
    */
 
   async function mapEffect({ leafletElement: map } = {}) {
-    if ( !map || !hasData ) return;
+    if ( !map || !hasCountries ) return;
 
     clearMapLayers({
       map,
       excludeByName: [ 'Mapbox' ]
     })
 
-    const locationsGeoJson = trackerLocationsToGeoJson(data);
+    const locationsGeoJson = trackerLocationsToGeoJson(countries);
 
     const locationsGeoJsonLayers = geoJsonToMarkers(locationsGeoJson, {
       onClick: handleOnMarkerClick,
@@ -82,13 +96,72 @@ const IndexPage = () => {
     mapEffect
   };
 
+
   return (
     <Layout pageName="home">
       <Helmet>
         <title>Home Page</title>
       </Helmet>
 
-      <Map {...mapSettings} />
+
+      <div className="tracker">
+
+        <Map {...mapSettings} />
+
+        <div className="tracker-stats">
+          <ul>
+            <li className="tracker-stat">
+              <p className="tracker-stat-primary">
+                { stats ? commafy(stats?.tests) : '-' }
+                <strong>Total Tests</strong>
+              </p>
+              <p className="tracker-stat-secondary">
+                { stats ? commafy(stats?.testsPerOneMillion) : '-' }
+                <strong>Per 1 Million</strong>
+              </p>
+            </li>
+            <li className="tracker-stat">
+              <p className="tracker-stat-primary">
+                { stats ? commafy(stats?.cases) : '-' }
+                <strong>Total Cases</strong>
+              </p>
+              <p className="tracker-stat-secondary">
+                { stats ? commafy(stats?.casesPerOneMillion) : '-' }
+                <strong>Per 1 Million</strong>
+              </p>
+            </li>
+            <li className="tracker-stat">
+              <p className="tracker-stat-primary">
+                {  stats ? commafy(stats?.deaths ) : '-' }
+                <strong>Total Deaths</strong>
+              </p>
+              <p className="tracker-stat-secondary">
+                { stats ? commafy(stats?.deathsPerOneMillion) : '-' }
+                <strong>Per 1 Million</strong>
+              </p>
+            </li>
+            <li className="tracker-stat">
+              <p className="tracker-stat-primary">
+                {  stats ? commafy(stats?.active ) : '-' }
+                <strong>Active</strong>
+              </p>
+            </li>
+            <li className="tracker-stat">
+              <p className="tracker-stat-primary">
+                {  stats ? commafy(stats?.critical ) : '-' }
+                <strong>Critical</strong>
+              </p>
+            </li>
+            <li className="tracker-stat">
+              <p className="tracker-stat-primary">
+                {  stats ? commafy(stats?.recovered ) : '-' }
+                <strong>Recovered</strong>
+              </p>
+            </li>
+          </ul>
+        </div>
+
+      </div>
 
       <Container type="content" className="text-center home-start">
         <h2>Demo Mapping App with Gatsby and React Leaflet</h2>
