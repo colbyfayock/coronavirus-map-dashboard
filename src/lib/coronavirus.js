@@ -1,7 +1,7 @@
 import { getBoundsOfCountryByIsoAlpha2Code } from 'osm-countries-bounds';
 import { getEmojiFlag } from 'countries-list';
 
-import { commafy } from 'lib/util';
+import { commafy, friendlyDate } from 'lib/util';
 
 /**
  * trackerLocationToFeature
@@ -95,12 +95,16 @@ export function trackerFeatureToHtmlMarker({ properties = {} } = {}) {
     if ( !value ) return stat;
 
     let newValue = value;
+
     if ( stat?.type === 'number' ) {
       newValue = commafy(value);
       if ( value > 999 ) {
         newValue = `${newValue.slice(0, -4)}k+`
       }
+    } else if ( stat?.type === 'date' ) {
+      newValue = friendlyDate(newValue);
     }
+
     return {
       ...stat,
       value: newValue

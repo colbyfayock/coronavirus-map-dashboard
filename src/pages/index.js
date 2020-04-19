@@ -4,7 +4,7 @@ import L from 'leaflet';
 
 import { promiseToFlyTo, geoJsonToMarkers, clearMapLayers } from 'lib/map';
 import { trackerLocationsToGeoJson, trackerFeatureToHtmlMarker } from 'lib/coronavirus';
-import { commafy } from 'lib/util';
+import { commafy, friendlyDate } from 'lib/util';
 import { useCoronavirusTracker } from 'hooks';
 
 import Layout from 'components/Layout';
@@ -159,6 +159,12 @@ const IndexPage = () => {
               </p>
             </li>
           </ul>
+        </div>
+
+        <div className="tracker-last-updated">
+          <p>
+            Last Updated: { stats ? friendlyDate(stats?.updated) : '-' }
+          </p>
         </div>
 
       </div>
