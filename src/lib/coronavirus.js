@@ -98,7 +98,9 @@ export function trackerFeatureToHtmlMarker({ properties = {} } = {}) {
 
     if ( stat?.type === 'number' ) {
       newValue = commafy(value);
-      if ( value > 999 ) {
+    if ( value > 999999 ) {
+        newValue = `${newValue.slice(0, -8)}m+`
+    } else if ( value > 999 ) {
         newValue = `${newValue.slice(0, -4)}k+`
       }
     } else if ( stat?.type === 'date' ) {
