@@ -11,17 +11,16 @@ import { commafy, friendlyDate } from 'lib/util';
 export function trackerLocationToFeature(location = {}) {
 
   const { countryInfo = {} } = location;
-  const { lat, long: lng, iso2 } = countryInfo;
+  const { lat, long: lng, iso2, flag } = countryInfo;
 
   const countryCode = iso2;
 
   let countryBounds;
-  let flag;
 
-  if ( typeof countryCode === 'string' ) {
-    countryBounds = getBoundsOfCountryByIsoAlpha2Code(countryCode);
-    flag = getEmojiFlag(countryCode);
-  }
+  // if ( typeof countryCode === 'string' ) {
+  //   countryBounds = getBoundsOfCountryByIsoAlpha2Code(countryCode);
+  //   //flag = getEmojiFlag(countryCode);
+  // }
 
   return {
     "type": "Feature",
@@ -65,6 +64,12 @@ export function trackerFeatureToHtmlMarker({ properties = {} } = {}) {
     deaths,
     recovered
   } = properties
+  console.log(flag)
+  let header = country;
+
+  if ( flag ) {
+    header = `<img src="${flag}" name="flag"> ${header}`;
+  }
 
   let stats = [
     {
@@ -127,7 +132,7 @@ export function trackerFeatureToHtmlMarker({ properties = {} } = {}) {
   return `
     <span class="icon-marker">
       <span class="icon-marker-tooltip">
-        <h2>${flag} ${country}</h2>
+        <h2>${header}</h2>
         <ul>${statsString}</ul>
       </span>
       ${ casesString }
