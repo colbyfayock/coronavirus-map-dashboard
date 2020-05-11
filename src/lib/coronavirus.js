@@ -134,4 +134,3 @@ export function trackerFeatureToHtmlMarker({ properties = {} } = {}) {
     </span>
   `;
 }
-
