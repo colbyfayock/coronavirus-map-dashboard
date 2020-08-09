@@ -17,10 +17,6 @@ export function trackerLocationToFeature(location = {}) {
 
   let countryBounds;
 
-  // if ( typeof countryCode === 'string' ) {
-  //   countryBounds = getBoundsOfCountryByIsoAlpha2Code(countryCode);
-  //   //flag = getEmojiFlag(countryCode);
-  // }
 
   return {
     "type": "Feature",
