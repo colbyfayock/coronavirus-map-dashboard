@@ -60,7 +60,7 @@ export function trackerFeatureToHtmlMarker({ properties = {} } = {}) {
     deaths,
     recovered
   } = properties
-  console.log(flag)
+  
   let header = country;
 
   if ( flag ) {
