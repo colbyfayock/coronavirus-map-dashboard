@@ -29,14 +29,6 @@ const IndexPage = () => {
 
   const hasCountries = Array.isArray(countries) && countries.length > 0;
 
-  // active: 1584170
-  // critical: 54536
-  // recovered: 606462
-
-  // todayCases: 21149
-  // todayDeaths: 1236
-  // updated: 1587302636236)
-
   /**
    * mapEffect
    * @description Fires a callback once the page renders
