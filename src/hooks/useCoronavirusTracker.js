@@ -7,71 +7,69 @@ const ENDPOINTS = [
   {
     id: 'all',
     path: '/all',
-    isDefault: true
+    isDefault: true,
   },
   {
     id: 'countries',
-    path: '/countries'
-  }
-]
+    path: '/countries',
+  },
+];
 
 const defaultState = {
   data: null,
-  state: 'ready'
-}
+  state: 'ready',
+};
 
 const useCoronavirusTracker = ({ api = 'all' }) => {
-
-  const [tracker = {}, updateTracker] = useState(defaultState)
+  const [tracker = {}, updateTracker] = useState( defaultState );
 
   async function fetchTracker() {
-    let route = ENDPOINTS.find(({ id } = {}) => id === api);
+    let route = ENDPOINTS.find(({ id } = {}) => id === api );
 
     if ( !route ) {
-      route = ENDPOINTS.find(({ isDefault } = {}) => !!isDefault);
+      route = ENDPOINTS.find(({ isDefault } = {}) => !!isDefault );
     }
 
     let response;
 
     try {
-      updateTracker((prev) => {
+      updateTracker(( prev ) => {
         return {
           ...prev,
-          state: 'loading'
-        }
+          state: 'loading',
+        };
       });
-      response = await axios.get(`${API_HOST}${route.path}`);
-    } catch(e) {
-      updateTracker((prev) => {
+      response = await axios.get( `${API_HOST}${route.path}` );
+    } catch ( e ) {
+      updateTracker(( prev ) => {
         return {
           ...prev,
           state: 'error',
-          error: e
-        }
+          error: e,
+        };
       });
       return;
     }
 
     const { data } = response;
 
-    updateTracker((prev) => {
+    updateTracker(( prev ) => {
       return {
         ...prev,
         state: 'ready',
-        data
-      }
+        data,
+      };
     });
-
   }
 
   useEffect(() => {
-    fetchTracker()
-  }, [api])
+    fetchTracker();
+  }, [api]);
 
   return {
     fetchTracker,
-    ...tracker
-  }
+    ...tracker,
+  };
 };
 
 export default useCoronavirusTracker;

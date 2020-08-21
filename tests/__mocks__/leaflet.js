@@ -163,5 +163,5 @@ module.exports = {
   Map: MapMock,
   map: ( id, options ) => new MapMock( id, options ),
   Popup: PopupMock,
-  popup: ( options, source ) => new PopupMock( options, source )
+  popup: ( options, source ) => new PopupMock( options, source ),
 };

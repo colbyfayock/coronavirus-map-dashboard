@@ -30,7 +30,7 @@ const Layout = ({ children, pageName }) => {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  pageName: PropTypes.string
+  pageName: PropTypes.string,
 };
 
 export default Layout;

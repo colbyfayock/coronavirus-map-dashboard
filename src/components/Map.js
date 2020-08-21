@@ -14,11 +14,11 @@ const Map = ( props ) => {
 
   useRefEffect({
     ref: mapRef,
-    effect: mapEffect
+    effect: mapEffect,
   });
 
   const services = useMapServices({
-    names: [defaultBaseMap]
+    names: [defaultBaseMap],
   });
   const basemap = services.find(( service ) => service.name === defaultBaseMap );
 
@@ -39,7 +39,7 @@ const Map = ( props ) => {
   const mapSettings = {
     className: 'map-base',
     zoomControl: false,
-    ...rest
+    ...rest,
   };
 
   return (
@@ -57,7 +57,7 @@ Map.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   defaultBaseMap: PropTypes.string,
-  mapEffect: PropTypes.func
+  mapEffect: PropTypes.func,
 };
 
 export default Map;
